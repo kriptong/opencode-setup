@@ -26,32 +26,31 @@
    по ситуации) до того, как заявить о готовности. Не коммить и не пушь без явной просьбы
    пользователя, если иное не согласовано.
 
-6. **GitHub Repo Hygiene (автоматически).** После любого мажорного изменения
-   (новые сервисы/фичи/саги, смена стека, изменение контрактов, релиз/delivery gate)
-   загружай скилл `github-repo-hygiene` и прогоняй чеклист соответствия описательной
-   части GitHub-страницы: README.md (EN) + README.ru.md (зеркало), LICENSE,
-   CODE_OF_CONDUCT.md, CONTRIBUTING.md, SECURITY.md, description, topics, ссылка на
-   GitHub Pages. Не жди напоминания пользователя — скилл выполняется как часть
-   завершения работы. Коммит/пуш только по явной просьбе или если это часть
+6. **GitHub Repo Hygiene (по согласованию).** При существенной работе с GitHub-репозиториями
+   подключай скиллы `repo-readme-assets`, `repo-community-files`, `repo-metadata-health`
+   (роутер `github-repo-hygiene` устарел) для описательной части страницы репозитория.
+   Коммит и пуш — только по явной просьбе пользователя или если это часть
    согласованного delivery gate.
 
 ## Профиль пользователя
 
-- Имя/ник: **best** (Сергей Кузюков, системный пользователь macOS); GitHub: **bestdeejay-design**.
 - Язык общения: русский.
-- Рабочая среда: opencode desktop (macOS), терминал zsh, десктопная автоматизация возможна через playwright.
-- Проекты: в `~/Projects` — `dj1` (музыкальный плеер-галерея), `lovii`/`lovii_docs` (SaaS локальных маркетплейсов), `pmos` (личная ОС: микросервисы, NATS, Postgres), `ksu` (портфолио дизайнера), `shimmer` (книга), `agent-skills` (скиллы для агента), `test` и др.; внешние материалы на OneDrive (`GitProjects`).
+- Окружение: **Windows 11**, PowerShell; OpenCode Desktop; путь пользователя `C:\Users\usano`.
+- Проекты: `C:\Projects` (в том числе `TestAI`, `opencode-setup`).
 - Знания и заметки: сохраняет в репозиториях GitHub (Markdown-доки); чаты opencode — временные, архиву не подлежат.
-- Политика данных: автоудаление неактивных чатов старше 3 дней (`maintenance.sh`, `RETENTION_DAYS`); приоритет — скорость и качество, а не долговременная память.
+- Политика данных: автоудаление неактивных чатов старше 3 дней (`maintenance/maintenance.mjs`, `RETENTION_DAYS`); приоритет — скорость и качество, а не долговременная память.
 - Предпочтения: скорость, качество решений, эстетика результата.
-- Локальная модель для быстрых задач: `qwen2.5-coder:7b` (ollama, провайдер `ollama-lan`).
-- GitHub-доступ: через `gh` CLI (авторизован `bestdeejay-design`), без MCP-сервера.
+- Локальная модель для быстрых задач: `qwen2.5-coder:7b` (ollama, провайдер `ollama-lan`; недоступна, если узел ollama не в сети).
+- GitHub-доступ: через `gh` CLI, без MCP-сервера `github`.
 
-## Настройка на новом компьютере
+## Настройка на новом компьютере (Windows)
 
-Рабочая конфигурация живёт в репозитории `bestdeejay-design/opencode-setup` (приватный).
+Рабочая конфигурация живёт в репозитории `bestdeejay-design/opencode-setup`.
 Если пользователь говорит «настрой по репозиторию / у меня новый компьютер»:
-1. Склонируй `https://github.com/bestdeejay-design/opencode-setup` в `~/Projects/opencode-setup`.
-2. Выполни `bash setup.sh` (раскладывает конфиги, ставит MCP-пакеты, скиллы из `agent-skills`, сервис обслуживания).
-3. Проверь по README: `gh auth status`, MCP-серверы, `launchctl list | grep opencode`, размер БД.
-4. Попроси пользователя перезапустить OpenCode.
+1. Склонируй `https://github.com/bestdeejay-design/opencode-setup` в `C:\Projects\opencode-setup`.
+2. Выполни `powershell -ExecutionPolicy Bypass -File C:\Projects\opencode-setup\setup.ps1`
+   (раскладывает конфиги, ставит MCP-пакеты и браузер chromium, скиллы из `agent-skills`,
+   регистрирует задачу Планировщика заданий `opencode-maintenance`).
+3. Проверь по README: `gh auth status`, наличие MCP-бинарков,
+   `Get-ScheduledTask opencode-maintenance`, размер БД `~\.local\share\opencode\opencode.db`.
+4. Попроси пользователя перезапустить OpenCode (MCP читаются при старте).
